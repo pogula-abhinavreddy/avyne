@@ -189,16 +189,16 @@
       border-color: rgba(232, 196, 106, 0.82);
     }
 
-    .logo-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--text-primary);
+    
+    .navbar-logo .logo-text {
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: 1.6px;
+      text-transform: none;
+      line-height: 1;
     }
 
-    .navbar-nav {
+.navbar-nav {
       display: flex;
       align-items: center;
       gap: 36px;
@@ -1455,7 +1455,8 @@
        ============================================================ -->
   <nav class="navbar" id="navbar" aria-label="Main navigation">
     <a href="#" class="navbar-logo" aria-label="Home">
-      <div class="logo-mark" aria-hidden="true"><img src="logo.png" alt="Brand logo" class="logo-image" loading="eager" decoding="async" width="64" height="64"></div>
+      <div class="logo-mark" aria-hidden="true"><img src="logo/logo.png" alt="Brand logo" class="logo-image" loading="eager" decoding="async" width="64" height="64"></div>
+      <span class="logo-text">Avyne</span>
     </a>
 
     <ul class="navbar-nav" role="list">
@@ -1500,7 +1501,7 @@
   <section class="hero" id="hero" aria-label="Hero banner">
     <div class="hero-bg" id="heroBg">
       <img
-        src="hero.png"
+        src="images/hero.png"
         alt="Hero campaign image"
         loading="eager"
         fetchpriority="high"
@@ -1544,9 +1545,9 @@
     <div class="filter-bar reveal reveal-delay-1" role="group" aria-label="Filter products by category">
       <button class="filter-btn active" data-filter="all">All</button>
       <button class="filter-btn" data-filter="Shirts">Shirts</button>
+      <button class="filter-btn" data-filter="Tshirts">Tshirts</button>
       <button class="filter-btn" data-filter="Trousers">Trousers</button>
       <button class="filter-btn" data-filter="Outerwear">Outerwear</button>
-      <button class="filter-btn" data-filter="Knitwear">Knitwear</button>
       <button class="filter-btn" data-filter="Accessories">Accessories</button>
     </div>
 
@@ -1650,7 +1651,7 @@
     <div class="footer-top">
       <div class="footer-brand">
         <div class="footer-logo">
-          <div class="logo-mark"><img src="logo.png" alt="Brand logo" class="logo-image" loading="lazy" decoding="async" width="64" height="64"></div>
+          <div class="logo-mark"><img src="logo/logo.png" alt="Brand logo" class="logo-image" loading="lazy" decoding="async" width="64" height="64"></div>
         </div>
         <p class="footer-tagline">A curated selection of the finest menswear, chosen with unwavering attention to craft and character.</p>
       </div>
@@ -1658,6 +1659,7 @@
         <h4>Shop</h4>
         <ul>
           <li><a href="#collection">All Pieces</a></li>
+          <li><a href="#categories">Tshirts</a></li>
           <li><a href="#categories">Shirts</a></li>
           <li><a href="#categories">Outerwear</a></li>
           <li><a href="#categories">Accessories</a></li>
@@ -1681,14 +1683,14 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">Â© 2025. All rights reserved. Affiliate links may earn us a commission.</p>
+      <p class="footer-copy">Avyne © 2026. All rights reserved.</p>
       <div class="footer-social">
         <!-- Instagram -->
         <a href="https://instagram.com/avyne.ae" class="social-link" aria-label="Instagram">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
         </a>
         <!-- Pinterest -->
-        <a href="#" class="social-link" aria-label="Pinterest">
+        <a href="https://in.pinterest.com/avyneAE/" class="social-link" aria-label="Pinterest">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.236 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.181-.78 1.172-4.97 1.172-4.97s-.299-.598-.299-1.482c0-1.388.806-2.428 1.808-2.428.852 0 1.265.64 1.265 1.408 0 .858-.546 2.14-.828 3.33-.236.995.499 1.806 1.476 1.806 1.772 0 3.136-1.867 3.136-4.563 0-2.384-1.714-4.05-4.162-4.05-2.833 0-4.496 2.124-4.496 4.32 0 .855.33 1.773.741 2.274a.3.3 0 01.069.286c-.076.313-.243.994-.276 1.134-.044.183-.145.222-.335.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.967-.527-2.292-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
         </a>
         <!-- X/Twitter -->
@@ -1735,44 +1737,38 @@
     const DEFAULT_PRODUCTS = [
       {
         id: 1,
-        name: "Slim Oxford Shirt",
-        price: "$149",
-        image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=600&q=80&auto=format",
-        url: "https://example.com/product/slim-oxford",
-        category: "Shirts",
-        badge: "New"
+        name: "Monochrome Zip Polo",
+        price: "₹269",
+        image: "images/Davynetshirt.webp",
+        url: "https://fktr.in/K297Vpq",
+        category: "Tshirts",
+        badge: "New",
+        showcase: true
       },
       {
         id: 2,
-        name: "Tailored Wool Trousers",
-        price: "$295",
-        image: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600&q=80&auto=format",
-        url: "https://example.com/product/wool-trousers",
-        category: "Trousers",
-        badge: ""
+        name: "white pink Zip Polo",
+        price: "₹277",
+        image: "images/image2.webp",
+        url: "https://fktr.in/udLt0F3",
+        category: "Tshirts",
+        badge: "",
+        showcase: true
       },
       {
         id: 3,
-        name: "Cashmere Crewneck",
-        price: "$380",
-        image: "https://images.unsplash.com/photo-1512327428889-db9569ab52cd?w=600&q=80&auto=format",
-        url: "https://example.com/product/cashmere-crewneck",
-        category: "Knitwear",
-        badge: "Editor's Pick"
-      },
-      {
-        id: 4,
-        name: "Merino Rollneck",
-        price: "$220",
-        image: "https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=600&q=80&auto=format",
-        url: "https://example.com/product/merino-rollneck",
-        category: "Knitwear",
-        badge: ""
+        name: "White Green Zip Polo",
+        price: "₹268",
+        image: "images/image 3.webp",
+        url: "https://fktr.in/3gr0e2p",
+        category: "Tshirts",
+        badge: "",
+        showcase: true
       },
       {
         id: 5,
         name: "Topcoat â€” Camel",
-        price: "$620",
+        price: "₹620",
         image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600&q=80&auto=format",
         url: "https://example.com/product/camel-topcoat",
         category: "Outerwear",
@@ -1781,7 +1777,7 @@
       {
         id: 6,
         name: "Linen Band-Collar Shirt",
-        price: "$165",
+        price: "₹165",
         image: "https://images.unsplash.com/photo-1607345366928-199ea26cfe3e?w=600&q=80&auto=format",
         url: "https://example.com/product/linen-shirt",
         category: "Shirts",
@@ -1790,7 +1786,7 @@
       {
         id: 7,
         name: "Leather Derby Shoes",
-        price: "$440",
+        price: "₹440",
         image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80&auto=format",
         url: "https://example.com/product/leather-derby",
         category: "Accessories",
@@ -1799,7 +1795,7 @@
       {
         id: 8,
         name: "Italian Corduroy Jacket",
-        price: "$520",
+        price: "₹520",
         image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80&auto=format",
         url: "https://example.com/product/corduroy-jacket",
         category: "Outerwear",
@@ -1808,7 +1804,7 @@
       {
         id: 9,
         name: "Chino Slim â€” Slate",
-        price: "$175",
+        price: "₹175",
         image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&q=80&auto=format",
         url: "https://example.com/product/slate-chino",
         category: "Trousers",
@@ -1817,7 +1813,7 @@
       {
         id: 10,
         name: "Silk Pocket Square",
-        price: "$65",
+        price: "₹65",
         image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&q=80&auto=format",
         url: "https://example.com/product/silk-pocket-square",
         category: "Accessories",
@@ -1826,7 +1822,7 @@
       {
         id: 11,
         name: "Overshirt â€” Brushed Cotton",
-        price: "$235",
+        price: "₹235",
         image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80&auto=format",
         url: "https://example.com/product/brushed-overshirt",
         category: "Outerwear",
@@ -1835,7 +1831,7 @@
       {
         id: 12,
         name: "Watch â€” Minimalist Steel",
-        price: "$895",
+        price: "₹895",
         image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&q=80&auto=format",
         url: "https://example.com/product/minimalist-watch",
         category: "Accessories",
@@ -1848,28 +1844,28 @@
        ============================================================ */
     const CATEGORIES_DATA = [
       {
-        label: "01 â€” Foundation",
+        label: "01 - Signature",
+        title: "Tshirts\nStatement",
+        count: "3 pieces",
+        image: "images/Davynetshirt.webp",
+        filter: "Tshirts"
+      },
+      {
+        label: "02 - Foundation",
         title: "The Considered\nShirt",
         count: "12 pieces",
         image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=700&q=80&auto=format",
         filter: "Shirts"
       },
       {
-        label: "02 â€” Structure",
+        label: "03 - Structure",
         title: "Outerwear\nAuthority",
         count: "8 pieces",
         image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=700&q=80&auto=format",
         filter: "Outerwear"
       },
       {
-        label: "03 â€” Softness",
-        title: "Knitwear\nEssentials",
-        count: "10 pieces",
-        image: "https://images.unsplash.com/photo-1512327428889-db9569ab52cd?w=700&q=80&auto=format",
-        filter: "Knitwear"
-      },
-      {
-        label: "04 â€” Detail",
+        label: "04 - Detail",
         title: "The Right\nAccessory",
         count: "6 pieces",
         image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=700&q=80&auto=format",
@@ -1886,7 +1882,7 @@
         tag: "The Season's Icon",
         title: "Camel Topcoat:\nThe Only Coat",
         desc: "A topcoat is not a purchase â€” it's an investment in how you arrive. This camel wool piece from a Milanese mill has been our most-requested for two seasons running.",
-        price: "$620",
+        price: "₹620",
         image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=800&q=80&auto=format",
         url: "https://example.com/product/camel-topcoat"
       },
@@ -1895,7 +1891,7 @@
         tag: "Editor's Obsession",
         title: "Merino Rollneck:\nQuiet Luxury",
         desc: "Worn beneath a suit or alone with dark denim: the Merino rollneck is the most versatile piece in any considered wardrobe. Sourced from a family mill in the Scottish Borders.",
-        price: "$220",
+        price: "₹220",
         image: "https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=800&q=80&auto=format",
         url: "https://example.com/product/merino-rollneck"
       },
@@ -1904,7 +1900,7 @@
         tag: "The Statement",
         title: "Minimalist Watch:\nTime Made Precise",
         desc: "Restraint is the greatest luxury. This Swiss-made steel piece carries no superfluous information â€” just clean indices, a linen dial, and decades of reliable service.",
-        price: "$895",
+        price: "₹895",
         image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&q=80&auto=format",
         url: "https://example.com/product/minimalist-watch"
       }
@@ -2019,11 +2015,36 @@
       const grid = document.getElementById('productsGrid');
       const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
 
-      grid.innerHTML = filtered.map((p, i) => `
-        <article class="product-card product-card-empty" style="transition-delay:${(i % 4) * 0.08}s" aria-label="Outfit placeholder">
-          <div class="product-img-wrap product-empty" aria-hidden="true"></div>
-        </article>
-      `).join('');
+      grid.innerHTML = filtered.map((p, i) => {
+        if (p.showcase) {
+          return `
+            <article class="product-card" data-id="${p.id}" style="transition-delay:${(i % 4) * 0.08}s" aria-label="${p.name}">
+              <div class="product-img-wrap">
+                <img
+                  src="${escapeHtml(p.image)}"
+                  alt="${escapeHtml(p.name)}"
+                  loading="lazy"
+                >
+                ${p.badge ? `<span class="product-badge">${escapeHtml(p.badge)}</span>` : ''}
+                <div class="product-overlay">
+                  <a href="${escapeHtml(p.url)}" target="_blank" rel="noopener noreferrer" class="product-view-btn">View Details</a>
+                </div>
+              </div>
+              <div class="product-info">
+                <div class="product-category">${escapeHtml(p.category)}</div>
+                <h3 class="product-name">${escapeHtml(p.name)}</h3>
+                <div class="product-price">${escapeHtml(p.price)}</div>
+              </div>
+            </article>
+          `;
+        }
+
+        return `
+          <article class="product-card product-card-empty" style="transition-delay:${(i % 4) * 0.08}s" aria-label="Outfit placeholder">
+            <div class="product-img-wrap product-empty" aria-hidden="true"></div>
+          </article>
+        `;
+      }).join('');
 
       // Trigger IntersectionObserver for new cards
       observeCards();
@@ -2175,6 +2196,33 @@
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
