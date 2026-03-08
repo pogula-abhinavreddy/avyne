@@ -1,0 +1,2270 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avyne â€” Curated Men's Style</title>
+  <meta name="description" content="Avyne: Timeless craft, curated menswear. Discover premium men's fashion with hand-picked pieces from the world's finest brands.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES â€” ADMIN: Edit colors here
+       ============================================================ */
+    :root {
+      /* Dark Mode (default) */
+      --bg-primary: #000000;
+      --bg-secondary: #0F0F0F;
+      --bg-tertiary: #161616;
+      --text-primary: #FAFAFA;
+      --text-secondary: #B8B8B8;
+      --text-muted: #666666;
+      --accent-gold: #C9A347;
+      --accent-gold-light: #E8C46A;
+      --accent-gold-dark: #A07830;
+      --card-bg: #0F0F0F;
+      --card-border: rgba(201, 163, 71, 0.12);
+      --shadow: 0 20px 60px rgba(0,0,0,0.5);
+      --shadow-sm: 0 4px 20px rgba(0,0,0,0.3);
+      --divider: rgba(255,255,255,0.06);
+
+      /* Navbar glass variables (applied on hover) */
+      --glass-bg: rgba(10,10,10,0.6);
+      --glass-border: rgba(201,163,71,0.15);
+      --glass-blur: 24px;
+
+      /* Navbar solid (default state) */
+      --navbar-solid: #000000;
+
+      --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition-fast: 0.25s ease;
+    }
+
+    :root[data-theme="light"] {
+      --bg-primary: #FAFAF8;
+      --bg-secondary: #F2F0EB;
+      --bg-tertiary: #E8E6DF;
+      --text-primary: #1A1A1A;
+      --text-secondary: #555555;
+      --text-muted: #999999;
+      --accent-gold: #B8922E;
+      --accent-gold-light: #D4AF37;
+      --accent-gold-dark: #8A6D20;
+      --card-bg: #FFFFFF;
+      --card-border: rgba(184, 146, 46, 0.15);
+      --shadow: 0 20px 60px rgba(0,0,0,0.08);
+      --shadow-sm: 0 4px 20px rgba(0,0,0,0.06);
+      --divider: rgba(0,0,0,0.06);
+
+      --glass-bg: rgba(250,250,248,0.7);
+      --glass-border: rgba(184,146,46,0.2);
+      --navbar-solid: #FAFAF8;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    ::selection {
+      background: var(--accent-gold);
+      color: #000;
+    }
+
+    /* ============================================================
+       SCROLLBAR
+       ============================================================ */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--accent-gold); border-radius: 2px; }
+
+    /* ============================================================
+       NAVBAR
+       ============================================================ */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 0 40px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--navbar-solid);
+      border-bottom: 1px solid transparent;
+      transition:
+        background 0.3s ease,
+        backdrop-filter 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+      will-change: background;
+    }
+
+    /* Glass state â€” added by JS on mouseenter */
+    .navbar.glass-effect {
+      background: var(--glass-bg) !important;
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border-bottom-color: var(--glass-border);
+      box-shadow: 0 1px 40px rgba(0,0,0,0.15);
+    }
+
+    /* Scrolled state (opaque but not glass) */
+    .navbar.scrolled {
+      box-shadow: var(--shadow-sm);
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 2;
+    }
+
+    .logo-mark {
+      width: 54px;
+      height: 54px;
+      padding: 8px;
+      border-radius: 14px;
+      border: 1px solid rgba(201, 163, 71, 0.52);
+      background: linear-gradient(155deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.02) 48%, rgba(8, 8, 8, 0.85) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      overflow: hidden;
+      position: relative;
+      transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .logo-mark::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(232, 196, 106, 0.25) 0%, transparent 58%);
+      pointer-events: none;
+    }
+
+    .logo-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.45));
+    }
+
+    .navbar:hover .logo-mark,
+    .navbar.glass-effect .logo-mark {
+      box-shadow: 0 0 24px rgba(201, 163, 71, 0.32), 0 14px 32px rgba(0,0,0,0.42);
+      transform: translateY(-2px) scale(1.02);
+      border-color: rgba(232, 196, 106, 0.82);
+    }
+
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .navbar-nav a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      position: relative;
+      transition: color var(--transition-fast);
+    }
+
+    .navbar-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent-gold);
+      transition: width 0.3s ease;
+    }
+
+    .navbar-nav a:hover {
+      color: var(--accent-gold);
+    }
+
+    .navbar-nav a:hover::after { width: 100%; }
+
+    .navbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: color var(--transition-fast), background var(--transition-fast);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .theme-toggle:hover {
+      color: var(--accent-gold);
+      background: rgba(201, 163, 71, 0.1);
+    }
+
+    .theme-toggle svg {
+      position: absolute;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    }
+
+    .icon-sun { opacity: 0; transform: rotate(90deg) scale(0.5); }
+    .icon-moon { opacity: 1; transform: rotate(0deg) scale(1); }
+
+    [data-theme="light"] .icon-sun { opacity: 1; transform: rotate(0deg) scale(1); }
+    [data-theme="light"] .icon-moon { opacity: 0; transform: rotate(-90deg) scale(0.5); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      width: 44px;
+      height: 44px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text-primary);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: center;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile Nav */
+    .mobile-nav {
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      padding: 0 40px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      z-index: 999;
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .mobile-nav.open {
+      max-height: 300px;
+      padding: 20px 40px 28px;
+    }
+
+    .mobile-nav ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .mobile-nav a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 108%;
+      object-fit: cover;
+      object-position: 50% 18%;
+      transform: translateY(0);
+      will-change: transform;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    [data-theme="dark"] .hero-overlay {
+      background: linear-gradient(
+        105deg,
+        rgba(0,0,0,0.82) 0%,
+        rgba(0,0,0,0.55) 50%,
+        rgba(0,0,0,0.2) 100%
+      );
+    }
+
+    [data-theme="light"] .hero-overlay {
+      background: linear-gradient(
+        105deg,
+        rgba(250,250,248,0.75) 0%,
+        rgba(250,250,248,0.35) 55%,
+        rgba(250,250,248,0.05) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 80px;
+      max-width: 700px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(52px, 7vw, 96px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      color: var(--text-primary);
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.9s ease 0.4s forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent-gold);
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      max-width: 400px;
+      margin-bottom: 44px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.9s ease 0.6s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.9s ease 0.8s forwards;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 36px;
+      background: var(--accent-gold);
+      color: #000;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(201, 163, 71, 0.35);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 36px;
+      background: transparent;
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      border: 1px solid var(--divider);
+      border-radius: 2px;
+      transition: border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.4s forwards;
+    }
+
+    .hero-scroll span {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--accent-gold), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(0.6); }
+    }
+
+    /* ============================================================
+       SECTION SCAFFOLDING
+       ============================================================ */
+    section { position: relative; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(34px, 4vw, 52px);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
+
+    .section-title em { font-style: italic; color: var(--accent-gold); }
+
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-top: 14px;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 300;
+    }
+
+    .gold-rule {
+      width: 48px;
+      height: 1px;
+      background: var(--accent-gold);
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+
+    /* ============================================================
+       COLLECTION GRID
+       ============================================================ */
+    #collection {
+      padding: 120px 60px;
+      background: var(--bg-primary);
+    }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+
+    .filter-btn {
+      padding: 9px 22px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border: 1px solid var(--divider);
+      border-radius: 2px;
+      background: transparent;
+      transition: all var(--transition-fast);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      color: var(--accent-gold);
+      border-color: var(--accent-gold);
+      background: rgba(201, 163, 71, 0.06);
+    }
+
+    /* Product Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    /* Product Card */
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 4px;
+      overflow: hidden;
+      transition:
+        transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        box-shadow 0.4s ease,
+        border-color 0.3s ease;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .product-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: var(--shadow);
+      border-color: rgba(201, 163, 71, 0.25);
+    }
+
+    .product-img-wrap {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: var(--bg-tertiary);
+    }
+
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s ease;
+    }
+
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.07);
+      filter: brightness(1.05);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: var(--accent-gold);
+      color: #000;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      font-weight: 500;
+    }
+
+    .product-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    [data-theme="light"] .product-overlay {
+      background: rgba(0,0,0,0.35);
+    }
+
+    .product-card:hover .product-overlay { opacity: 1; }
+    .product-card-empty {
+      cursor: default;
+    }
+
+    .product-card-empty:hover {
+      transform: translateY(-4px);
+    }
+
+    .product-empty {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, rgba(255,255,255,0.02) 0%, rgba(201,163,71,0.07) 100%);
+      position: relative;
+    }
+
+    .product-empty::before {
+      content: '';
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(201, 163, 71, 0.18);
+      border-radius: 2px;
+    }
+
+    .product-empty::after {
+      content: '';
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      height: 1px;
+      background: rgba(201, 163, 71, 0.22);
+    }
+
+    .product-view-btn {
+      width: 100%;
+      padding: 13px 20px;
+      background: var(--accent-gold);
+      color: #000;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      text-align: center;
+      border-radius: 2px;
+      transition: background var(--transition-fast);
+    }
+
+    .product-view-btn:hover {
+      background: var(--accent-gold-light);
+    }
+
+    .product-info {
+      padding: 18px 20px 20px;
+    }
+
+    .product-category {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 6px;
+    }
+
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .product-price {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--accent-gold);
+      font-weight: 400;
+    }
+
+    /* ============================================================
+       CATEGORY STORIES
+       ============================================================ */
+    #categories {
+      padding: 120px 0;
+      background: var(--bg-secondary);
+      overflow: hidden;
+    }
+
+    #categories .section-header {
+      padding: 0 60px;
+    }
+
+    .categories-track {
+      display: flex;
+      gap: 20px;
+      padding: 0 60px 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .categories-track::-webkit-scrollbar { display: none; }
+
+    .category-card {
+      flex-shrink: 0;
+      width: 320px;
+      height: 460px;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      scroll-snap-align: start;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .category-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .category-card:hover img { transform: scale(1.06); }
+
+    .category-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%);
+    }
+
+    [data-theme="light"] .category-overlay {
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.05) 60%);
+    }
+
+    .category-info {
+      position: absolute;
+      bottom: 28px;
+      left: 28px;
+      right: 28px;
+    }
+
+    .category-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 6px;
+    }
+
+    .category-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 500;
+      color: #FAFAFA;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .category-count {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .category-arrow {
+      position: absolute;
+      top: 28px;
+      right: 28px;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .category-card:hover .category-arrow {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ============================================================
+       AVYNE EDIT â€” CAROUSEL
+       ============================================================ */
+    #featured {
+      padding: 120px 60px;
+      background: var(--bg-primary);
+    }
+
+    .carousel-wrap {
+      position: relative;
+      max-width: 1320px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .carousel-slide {
+      flex-shrink: 0;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .carousel-img {
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      border-radius: 4px;
+      border: 1px solid var(--card-border);
+    }
+
+    .carousel-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .carousel-body {}
+
+    .carousel-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 80px;
+      font-weight: 400;
+      color: var(--divider);
+      line-height: 1;
+      margin-bottom: -20px;
+    }
+
+    .carousel-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 16px;
+    }
+
+    .carousel-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+
+    .carousel-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+
+    .carousel-price {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 22px;
+      color: var(--accent-gold);
+      margin-bottom: 32px;
+    }
+
+    .carousel-controls {
+      display: flex;
+      gap: 12px;
+      margin-top: 48px;
+    }
+
+    .carousel-btn {
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--divider);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+    }
+
+    .carousel-btn:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      background: rgba(201, 163, 71, 0.08);
+    }
+
+    .carousel-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-left: auto;
+    }
+
+    .carousel-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--divider);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .carousel-dot.active {
+      background: var(--accent-gold);
+      transform: scale(1.4);
+    }
+
+    /* ============================================================
+       PHILOSOPHY SECTION
+       ============================================================ */
+    #philosophy {
+      padding: 140px 60px;
+      background: var(--bg-secondary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .philosophy-deco {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      border: 1px solid var(--divider);
+      pointer-events: none;
+    }
+
+    .philosophy-deco::before {
+      content: '';
+      position: absolute;
+      inset: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--divider);
+    }
+
+    .philosophy-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .philosophy-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 400;
+      line-height: 1.35;
+      color: var(--text-primary);
+      margin-bottom: 40px;
+      font-style: italic;
+    }
+
+    .philosophy-quote strong {
+      font-style: normal;
+      color: var(--accent-gold);
+    }
+
+    .philosophy-body {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 48px;
+    }
+
+    .philosophy-stats {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      padding-top: 48px;
+      border-top: 1px solid var(--divider);
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 400;
+      color: var(--accent-gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ============================================================
+       NEWSLETTER BAND
+       ============================================================ */
+    #newsletter {
+      padding: 80px 60px;
+      background: var(--bg-primary);
+      border-top: 1px solid var(--divider);
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .newsletter-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .newsletter-inner h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .newsletter-inner p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      font-weight: 300;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--card-border);
+      border-radius: 2px;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
+    }
+
+    .newsletter-form:focus-within {
+      border-color: var(--accent-gold);
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 15px 20px;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-family: 'Fraunces', serif;
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    .newsletter-form input::placeholder { color: var(--text-muted); }
+
+    .newsletter-form button {
+      padding: 15px 28px;
+      background: var(--accent-gold);
+      color: #000;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: background var(--transition-fast);
+    }
+
+    .newsletter-form button:hover { background: var(--accent-gold-light); }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      padding: 80px 60px 40px;
+      background: var(--bg-secondary);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand {}
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo .logo-mark {
+      width: 48px;
+      height: 48px;
+      padding: 7px;
+      border-radius: 12px;
+    }
+
+    .footer-logo .logo-text {
+      font-size: 18px;
+      letter-spacing: 2.5px;
+    }
+
+    .footer-tagline {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-weight: 300;
+      max-width: 240px;
+    }
+
+    .footer-col h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col li { margin-bottom: 10px; }
+
+    .footer-col a {
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: color var(--transition-fast);
+    }
+
+    .footer-col a:hover { color: var(--accent-gold); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 32px;
+      border-top: 1px solid var(--divider);
+    }
+
+    .footer-copy {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 14px;
+    }
+
+    .social-link {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--divider);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: all var(--transition-fast);
+    }
+
+    .social-link:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    /* ============================================================
+       ADMIN PANEL
+       ============================================================ */
+    .admin-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .admin-overlay.open { display: flex; }
+
+    .admin-panel {
+      background: var(--bg-secondary);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      width: 100%;
+      max-width: 760px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 40px;
+    }
+
+    .admin-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .admin-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: var(--text-primary);
+    }
+
+    .admin-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      border: 1px solid var(--divider);
+      transition: all var(--transition-fast);
+    }
+
+    .admin-close:hover {
+      color: var(--accent-gold);
+      border-color: var(--accent-gold);
+    }
+
+    .admin-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      padding: 12px 16px;
+      border: 1px solid var(--divider);
+      border-radius: 4px;
+    }
+
+    .admin-products {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .admin-product-row {
+      padding: 16px;
+      border: 1px solid var(--divider);
+      border-radius: 4px;
+      transition: border-color var(--transition-fast);
+    }
+
+    .admin-product-row:focus-within {
+      border-color: var(--accent-gold);
+    }
+
+    .admin-row-head {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .admin-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .admin-fields input,
+    .admin-fields select {
+      padding: 9px 12px;
+      background: var(--bg-primary);
+      border: 1px solid var(--divider);
+      border-radius: 3px;
+      color: var(--text-primary);
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      transition: border-color var(--transition-fast);
+    }
+
+    .admin-fields input:focus,
+    .admin-fields select:focus {
+      border-color: var(--accent-gold);
+    }
+
+    .admin-fields input.full { grid-column: 1 / -1; }
+
+    .admin-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .admin-save {
+      padding: 12px 28px;
+      background: var(--accent-gold);
+      color: #000;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: 2px;
+      transition: background var(--transition-fast);
+    }
+
+    .admin-save:hover { background: var(--accent-gold-light); }
+
+    .admin-add {
+      padding: 12px 24px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1px solid var(--divider);
+      border-radius: 2px;
+      transition: all var(--transition-fast);
+    }
+
+    .admin-add:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    /* ============================================================
+       UTILITY â€” ANIMATIONS & HELPERS
+       ============================================================ */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* Gold divider line */
+    .gold-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+      margin: 0;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 1200px) {
+      .products-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-top { grid-template-columns: 1.5fr 1fr 1fr; }
+      .footer-top .footer-brand { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 1024px) {
+      .navbar-nav { display: none; }
+      .hamburger { display: flex; }
+      .hero-content { padding: 0 40px; }
+      #collection { padding: 80px 32px; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .carousel-slide { grid-template-columns: 1fr; }
+      .carousel-img { max-width: 400px; }
+      #featured { padding: 80px 32px; }
+      #philosophy { padding: 100px 32px; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar { padding: 0 24px; }
+      .hero-bg img { height: 104%; object-position: 56% 14%; }
+      .mobile-nav { padding: 0 24px; }
+      .mobile-nav.open { padding: 20px 24px 28px; }
+      .hero-content { padding: 0 24px; }
+      .hero-title { font-size: 44px; }
+      .hero-sub { font-size: 16px; }
+      #collection { padding: 64px 20px; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      #categories { padding: 80px 0; }
+      #categories .section-header { padding: 0 24px; }
+      .categories-track { padding: 0 24px 20px; }
+      #featured { padding: 64px 24px; }
+      #philosophy { padding: 80px 24px; }
+      .philosophy-stats { gap: 32px; flex-wrap: wrap; }
+      #newsletter { padding: 64px 24px; }
+      footer { padding: 60px 24px 32px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+      .admin-panel { padding: 24px; }
+      .admin-fields { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-bg img { height: 100%; object-position: 58% 12%; }
+      .products-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 36px; }
+      .footer-top { grid-template-columns: 1fr; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form button { width: 100%; padding: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <nav class="navbar" id="navbar" aria-label="Main navigation">
+    <a href="#" class="navbar-logo" aria-label="Avyne Home">
+      <div class="logo-mark" aria-hidden="true"><img src="logo.png" alt="Avyne logo" class="logo-image" loading="eager" decoding="async" width="64" height="64"></div>
+      <span class="logo-text">Avyne</span>
+    </a>
+
+    <ul class="navbar-nav" role="list">
+      <li><a href="#collection">Collection</a></li>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#featured">The Edit</a></li>
+      <li><a href="#philosophy">Story</a></li>
+    </ul>
+
+    <div class="navbar-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme">
+        <!-- Sun icon (shown in light mode) -->
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <!-- Moon icon (shown in dark mode) -->
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="#collection" class="mobile-link">Collection</a></li>
+      <li><a href="#categories" class="mobile-link">Categories</a></li>
+      <li><a href="#featured" class="mobile-link">The Edit</a></li>
+      <li><a href="#philosophy" class="mobile-link">Our Story</a></li>
+    </ul>
+  </div>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero" id="hero" aria-label="Hero banner">
+    <div class="hero-bg" id="heroBg">
+      <img
+        src="hero.png"
+        alt="Avyne hero campaign image"
+        loading="eager"
+        fetchpriority="high"
+      >
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Curated Men's Craft</p>
+      <h1 class="hero-title">Avyne:<br><em>Timeless</em><br>Craft</h1>
+      <p class="hero-sub">Hand-picked menswear from the world's most refined ateliers. Worn with intention.</p>
+      <div class="hero-actions">
+        <a href="#collection" class="btn-primary">
+          Explore Collection
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="#philosophy" class="btn-outline">Our Philosophy</a>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ============================================================
+       COLLECTION GRID
+       ============================================================ -->
+  <section id="collection" aria-labelledby="collection-title">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Curated Picks</p>
+      <h2 class="section-title" id="collection-title">The <em>Collection</em></h2>
+      <p class="section-subtitle">Each piece selected for its craft, material, and enduring character.</p>
+      <div class="gold-rule"></div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar reveal reveal-delay-1" role="group" aria-label="Filter products by category">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="Shirts">Shirts</button>
+      <button class="filter-btn" data-filter="Trousers">Trousers</button>
+      <button class="filter-btn" data-filter="Outerwear">Outerwear</button>
+      <button class="filter-btn" data-filter="Knitwear">Knitwear</button>
+      <button class="filter-btn" data-filter="Accessories">Accessories</button>
+    </div>
+
+    <!-- Products Grid â€” populated by JS -->
+    <div class="products-grid" id="productsGrid" aria-label="Product grid"></div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ============================================================
+       CATEGORY STORIES
+       ============================================================ -->
+  <section id="categories" aria-labelledby="categories-title">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Shop by Story</p>
+      <h2 class="section-title" id="categories-title">Category <em>Stories</em></h2>
+      <p class="section-subtitle">Discover curated edits for every occasion and mood.</p>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="categories-track" id="categoriesTrack" role="list">
+      <!-- Items populated by JS -->
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ============================================================
+       AVYNE EDIT â€” CAROUSEL
+       ============================================================ -->
+  <section id="featured" aria-labelledby="featured-title">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">The Avyne Edit</p>
+      <h2 class="section-title" id="featured-title">Editor's <em>Picks</em></h2>
+      <p class="section-subtitle">This season's most considered choices, spotlighted.</p>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="carousel-wrap reveal">
+      <div class="carousel-track" id="carouselTrack" aria-live="polite">
+        <!-- Slides populated by JS -->
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevSlide" aria-label="Previous slide">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <button class="carousel-btn" id="nextSlide" aria-label="Next slide">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <div class="carousel-dots" id="carouselDots" role="tablist" aria-label="Slide navigation"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ============================================================
+       PHILOSOPHY
+       ============================================================ -->
+  <section id="philosophy" aria-labelledby="philosophy-title">
+    <div class="philosophy-deco" aria-hidden="true"></div>
+    <div class="philosophy-inner">
+      <div class="reveal">
+        <p class="section-eyebrow">Our Philosophy</p>
+      </div>
+      <blockquote class="philosophy-quote reveal reveal-delay-1" id="philosophy-title">
+        "Less noise. More <strong>intention</strong>. A wardrobe built to last decades, not seasons."
+      </blockquote>
+      <p class="philosophy-body reveal reveal-delay-2">
+        Avyne was born from a conviction that great dressing is not about volume â€” it's about precision.
+        We spend months sourcing each piece, seeking garments that reward attention: the weight of a cashmere,
+        the grain of a leather sole, the fall of a perfectly cut lapel. What you find here is the distillation
+        of that pursuit.
+      </p>
+      <a href="#collection" class="btn-primary reveal reveal-delay-3" style="display:inline-flex">
+        Begin Exploring
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <div class="philosophy-stats reveal reveal-delay-4">
+        <div class="stat-item">
+          <div class="stat-num">12+</div>
+          <div class="stat-label">Curated Brands</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">300+</div>
+          <div class="stat-label">Pieces Sourced</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Hand-Selected</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ============================================================
+       NEWSLETTER
+       ============================================================ -->
+  <section id="newsletter">
+    <div class="newsletter-inner reveal">
+      <h3>The Avyne Letter</h3>
+      <p>New arrivals, editorial dispatches, and quiet style notes â€” sent sparingly.</p>
+      <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+        <input type="email" placeholder="Your email address" aria-label="Email address" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="logo-mark"><img src="logo.png" alt="Avyne logo" class="logo-image" loading="lazy" decoding="async" width="64" height="64"></div>
+          <span class="logo-text">Avyne</span>
+        </div>
+        <p class="footer-tagline">A curated selection of the finest menswear, chosen with unwavering attention to craft and character.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#collection">All Pieces</a></li>
+          <li><a href="#categories">Shirts</a></li>
+          <li><a href="#categories">Outerwear</a></li>
+          <li><a href="#categories">Accessories</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Avyne</h4>
+        <ul>
+          <li><a href="#philosophy">Our Story</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
+          <li><a href="#">Editorial</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="#">Affiliate Disclosure</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">Â© 2025 Avyne. All rights reserved. Affiliate links may earn us a commission.</p>
+      <div class="footer-social">
+        <!-- Instagram -->
+        <a href="https://instagram.com/avyne.ae" class="social-link" aria-label="Avyne on Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <!-- Pinterest -->
+        <a href="#" class="social-link" aria-label="Avyne on Pinterest">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.236 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.181-.78 1.172-4.97 1.172-4.97s-.299-.598-.299-1.482c0-1.388.806-2.428 1.808-2.428.852 0 1.265.64 1.265 1.408 0 .858-.546 2.14-.828 3.33-.236.995.499 1.806 1.476 1.806 1.772 0 3.136-1.867 3.136-4.563 0-2.384-1.714-4.05-4.162-4.05-2.833 0-4.496 2.124-4.496 4.32 0 .855.33 1.773.741 2.274a.3.3 0 01.069.286c-.076.313-.243.994-.276 1.134-.044.183-.145.222-.335.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.967-.527-2.292-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+        </a>
+        <!-- X/Twitter -->
+        <a href="#" class="social-link" aria-label="Avyne on X">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       ADMIN PANEL (accessed via ?admin=1)
+       ============================================================ -->
+  <div class="admin-overlay" id="adminOverlay" role="dialog" aria-modal="true" aria-label="Admin product editor">
+    <div class="admin-panel">
+      <div class="admin-header">
+        <h2>Product Editor</h2>
+        <button class="admin-close" id="adminClose" aria-label="Close admin panel">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <p class="admin-note">
+        âœï¸ Edit product details below. Changes are saved to localStorage and persist on reload. Access with <code>?admin=1</code> in the URL.
+      </p>
+      <div class="admin-products" id="adminProducts"></div>
+      <div class="admin-actions">
+        <button class="admin-save" id="adminSave">Save Changes</button>
+        <button class="admin-add" id="adminAdd">+ Add Product</button>
+        <button class="admin-add" id="adminReset" style="color:var(--accent-gold)">Reset to Defaults</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    /* ============================================================
+       1. PRODUCTS ARRAY â€” ADMIN EDITABLE
+       Edit image URLs, prices, names, categories, and affiliate links here.
+       Each product: { id, name, price, image, url, category, badge }
+       badge: optional label like "New", "Editor's Pick", "Sale"
+       ============================================================ */
+    const DEFAULT_PRODUCTS = [
+      {
+        id: 1,
+        name: "Slim Oxford Shirt",
+        price: "$149",
+        image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=600&q=80&auto=format",
+        url: "https://example.com/product/slim-oxford",
+        category: "Shirts",
+        badge: "New"
+      },
+      {
+        id: 2,
+        name: "Tailored Wool Trousers",
+        price: "$295",
+        image: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600&q=80&auto=format",
+        url: "https://example.com/product/wool-trousers",
+        category: "Trousers",
+        badge: ""
+      },
+      {
+        id: 3,
+        name: "Cashmere Crewneck",
+        price: "$380",
+        image: "https://images.unsplash.com/photo-1512327428889-db9569ab52cd?w=600&q=80&auto=format",
+        url: "https://example.com/product/cashmere-crewneck",
+        category: "Knitwear",
+        badge: "Editor's Pick"
+      },
+      {
+        id: 4,
+        name: "Merino Rollneck",
+        price: "$220",
+        image: "https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=600&q=80&auto=format",
+        url: "https://example.com/product/merino-rollneck",
+        category: "Knitwear",
+        badge: ""
+      },
+      {
+        id: 5,
+        name: "Topcoat â€” Camel",
+        price: "$620",
+        image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600&q=80&auto=format",
+        url: "https://example.com/product/camel-topcoat",
+        category: "Outerwear",
+        badge: "Bestseller"
+      },
+      {
+        id: 6,
+        name: "Linen Band-Collar Shirt",
+        price: "$165",
+        image: "https://images.unsplash.com/photo-1607345366928-199ea26cfe3e?w=600&q=80&auto=format",
+        url: "https://example.com/product/linen-shirt",
+        category: "Shirts",
+        badge: ""
+      },
+      {
+        id: 7,
+        name: "Leather Derby Shoes",
+        price: "$440",
+        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80&auto=format",
+        url: "https://example.com/product/leather-derby",
+        category: "Accessories",
+        badge: "New"
+      },
+      {
+        id: 8,
+        name: "Italian Corduroy Jacket",
+        price: "$520",
+        image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80&auto=format",
+        url: "https://example.com/product/corduroy-jacket",
+        category: "Outerwear",
+        badge: ""
+      },
+      {
+        id: 9,
+        name: "Chino Slim â€” Slate",
+        price: "$175",
+        image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&q=80&auto=format",
+        url: "https://example.com/product/slate-chino",
+        category: "Trousers",
+        badge: ""
+      },
+      {
+        id: 10,
+        name: "Silk Pocket Square",
+        price: "$65",
+        image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&q=80&auto=format",
+        url: "https://example.com/product/silk-pocket-square",
+        category: "Accessories",
+        badge: "New"
+      },
+      {
+        id: 11,
+        name: "Overshirt â€” Brushed Cotton",
+        price: "$235",
+        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80&auto=format",
+        url: "https://example.com/product/brushed-overshirt",
+        category: "Outerwear",
+        badge: ""
+      },
+      {
+        id: 12,
+        name: "Watch â€” Minimalist Steel",
+        price: "$895",
+        image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&q=80&auto=format",
+        url: "https://example.com/product/minimalist-watch",
+        category: "Accessories",
+        badge: "Editor's Pick"
+      }
+    ];
+
+    /* ============================================================
+       2. CATEGORY STORIES DATA â€” ADMIN EDITABLE
+       ============================================================ */
+    const CATEGORIES_DATA = [
+      {
+        label: "01 â€” Foundation",
+        title: "The Considered\nShirt",
+        count: "12 pieces",
+        image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=700&q=80&auto=format",
+        filter: "Shirts"
+      },
+      {
+        label: "02 â€” Structure",
+        title: "Outerwear\nAuthority",
+        count: "8 pieces",
+        image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=700&q=80&auto=format",
+        filter: "Outerwear"
+      },
+      {
+        label: "03 â€” Softness",
+        title: "Knitwear\nEssentials",
+        count: "10 pieces",
+        image: "https://images.unsplash.com/photo-1512327428889-db9569ab52cd?w=700&q=80&auto=format",
+        filter: "Knitwear"
+      },
+      {
+        label: "04 â€” Detail",
+        title: "The Right\nAccessory",
+        count: "6 pieces",
+        image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=700&q=80&auto=format",
+        filter: "Accessories"
+      }
+    ];
+
+    /* ============================================================
+       3. FEATURED CAROUSEL DATA â€” ADMIN EDITABLE
+       ============================================================ */
+    const FEATURED_DATA = [
+      {
+        num: "01",
+        tag: "The Season's Icon",
+        title: "Camel Topcoat:\nThe Only Coat",
+        desc: "A topcoat is not a purchase â€” it's an investment in how you arrive. This camel wool piece from a Milanese mill has been our most-requested for two seasons running.",
+        price: "$620",
+        image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=800&q=80&auto=format",
+        url: "https://example.com/product/camel-topcoat"
+      },
+      {
+        num: "02",
+        tag: "Editor's Obsession",
+        title: "Merino Rollneck:\nQuiet Luxury",
+        desc: "Worn beneath a suit or alone with dark denim: the Merino rollneck is the most versatile piece in any considered wardrobe. Sourced from a family mill in the Scottish Borders.",
+        price: "$220",
+        image: "https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=800&q=80&auto=format",
+        url: "https://example.com/product/merino-rollneck"
+      },
+      {
+        num: "03",
+        tag: "The Statement",
+        title: "Minimalist Watch:\nTime Made Precise",
+        desc: "Restraint is the greatest luxury. This Swiss-made steel piece carries no superfluous information â€” just clean indices, a linen dial, and decades of reliable service.",
+        price: "$895",
+        image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&q=80&auto=format",
+        url: "https://example.com/product/minimalist-watch"
+      }
+    ];
+
+    /* ============================================================
+       STATE
+       ============================================================ */
+    let products = [];
+    let currentFilter = "all";
+    let currentSlide = 0;
+    let carouselInterval = null;
+
+    /* ============================================================
+       4. THEME MANAGER
+       ============================================================ */
+    const ThemeManager = {
+      init() {
+        const saved = localStorage.getItem('avyne-theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        this.set(saved || preferred, false);
+      },
+      set(theme, save = true) {
+        document.documentElement.setAttribute('data-theme', theme);
+        if (save) localStorage.setItem('avyne-theme', theme);
+      },
+      toggle() {
+        const current = document.documentElement.getAttribute('data-theme');
+        this.set(current === 'dark' ? 'light' : 'dark');
+      }
+    };
+
+    ThemeManager.init();
+
+    document.getElementById('themeToggle').addEventListener('click', () => ThemeManager.toggle());
+
+    /* ============================================================
+       5. NAVBAR â€” GLASS HOVER + SCROLL + MOBILE
+       ============================================================ */
+    const navbar = document.getElementById('navbar');
+
+    // Glass effect on hover
+    navbar.addEventListener('mouseenter', () => navbar.classList.add('glass-effect'));
+    navbar.addEventListener('mouseleave', () => {
+      // Keep glass if scrolled past hero
+      if (window.scrollY < 80) navbar.classList.remove('glass-effect');
+    });
+
+    // Scroll behaviour
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+        navbar.classList.remove('glass-effect');
+      }
+    }, { passive: true });
+
+    // Mobile hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('open');
+      hamburger.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      mobileNav.setAttribute('aria-hidden', !isOpen);
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', false);
+        mobileNav.setAttribute('aria-hidden', true);
+      });
+    });
+
+    /* ============================================================
+       6. HERO PARALLAX
+       ============================================================ */
+    const heroBg = document.getElementById('heroBg');
+    const heroImg = heroBg?.querySelector('img');
+
+    if (heroImg) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        if (scrolled < window.innerHeight * 1.5) {
+          heroImg.style.transform = `translateY(${scrolled * 0.2}px)`;
+        }
+      }, { passive: true });
+    }
+
+    /* ============================================================
+       7. PRODUCTS â€” LOAD, RENDER, FILTER
+       ============================================================ */
+    function loadProducts() {
+      try {
+        const saved = localStorage.getItem('avyne-products');
+        products = saved ? JSON.parse(saved) : DEFAULT_PRODUCTS;
+      } catch {
+        products = DEFAULT_PRODUCTS;
+      }
+    }
+
+    function saveProducts() {
+      localStorage.setItem('avyne-products', JSON.stringify(products));
+    }
+
+    function renderProducts(filter = 'all') {
+      currentFilter = filter;
+      const grid = document.getElementById('productsGrid');
+      const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+
+      grid.innerHTML = filtered.map((p, i) => `
+        <article class="product-card product-card-empty" style="transition-delay:${(i % 4) * 0.08}s" aria-label="Outfit placeholder">
+          <div class="product-img-wrap product-empty" aria-hidden="true"></div>
+        </article>
+      `).join('');
+
+      // Trigger IntersectionObserver for new cards
+      observeCards();
+    }
+
+    function observeCards() {
+      const cards = document.querySelectorAll('.product-card:not(.visible)');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry, idx) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('visible'), idx * 60);
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      cards.forEach(c => io.observe(c));
+    }
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderProducts(btn.dataset.filter);
+      });
+    });
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function renderCategories() {
+      const track = document.getElementById('categoriesTrack');
+      if (!track || typeof CATEGORIES_DATA === 'undefined') return;
+
+      track.innerHTML = CATEGORIES_DATA.map(cat => `
+        <div class="category-card" role="listitem" tabindex="0" aria-label="${cat.title.replace('\n',' ')}" onclick="filterByCategory('${cat.filter}')">
+          <img src="${escapeHtml(cat.image)}" alt="${escapeHtml(cat.title.replace('\n',' '))}" loading="lazy">
+          <div class="category-overlay"></div>
+          <div class="category-info">
+            <div class="category-label">${escapeHtml(cat.label)}</div>
+            <div class="category-title">${cat.title.replace('\n', '<br>')}</div>
+            <div class="category-count">${escapeHtml(cat.count)}</div>
+          </div>
+          <div class="category-arrow" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      `).join('');
+
+      track.querySelectorAll('.category-card').forEach(card => {
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') card.click();
+        });
+      });
+    }
+
+    function filterByCategory(category) {
+      const collection = document.getElementById('collection');
+      if (collection) collection.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        const btn = document.querySelector(`.filter-btn[data-filter="${category}"]`);
+        if (btn) btn.click();
+      }, 600);
+    }
+
+    function renderCarousel() {
+      const track = document.getElementById('carouselTrack');
+      const dots = document.getElementById('carouselDots');
+      if (!track || !dots || typeof FEATURED_DATA === 'undefined') return;
+
+      track.innerHTML = FEATURED_DATA.map((item, i) => `
+        <div class="carousel-slide" aria-label="Slide ${i + 1} of ${FEATURED_DATA.length}">
+          <div class="carousel-img">
+            <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title.replace('\n',' '))}" loading="lazy">
+          </div>
+          <div class="carousel-body">
+            <div class="carousel-num">${escapeHtml(item.num)}</div>
+            <div class="carousel-tag">${escapeHtml(item.tag)}</div>
+            <h3 class="carousel-title">${item.title.replace('\n', '<br>')}</h3>
+            <p class="carousel-desc">${escapeHtml(item.desc)}</p>
+            <div class="carousel-price">${escapeHtml(item.price)}</div>
+            <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-flex">
+              View Piece
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      `).join('');
+
+      dots.innerHTML = FEATURED_DATA.map((_, i) => `
+        <button class="carousel-dot ${i === 0 ? 'active' : ''}" data-index="${i}" role="tab" aria-label="Go to slide ${i + 1}" aria-selected="${i === 0}"></button>
+      `).join('');
+
+      dots.querySelectorAll('.carousel-dot').forEach(dot => {
+        dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.index)));
+      });
+    }
+
+    function goToSlide(index) {
+      if (typeof FEATURED_DATA === 'undefined' || !FEATURED_DATA.length) return;
+      currentSlide = (index + FEATURED_DATA.length) % FEATURED_DATA.length;
+      const track = document.getElementById('carouselTrack');
+      if (track) track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      document.querySelectorAll('.carousel-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === currentSlide);
+        d.setAttribute('aria-selected', i === currentSlide);
+      });
+      resetCarouselInterval();
+    }
+
+    function resetCarouselInterval() {
+      if (typeof carouselInterval === 'undefined') return;
+      clearInterval(carouselInterval);
+      carouselInterval = setInterval(() => goToSlide(currentSlide + 1), 5500);
+    }
+
+    const prevSlideBtn = document.getElementById('prevSlide');
+    const nextSlideBtn = document.getElementById('nextSlide');
+    if (prevSlideBtn) prevSlideBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+    if (nextSlideBtn) nextSlideBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+    function initRevealObserver() {
+      const revealEls = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealEls.forEach(el => io.observe(el));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProducts();
+      renderProducts();
+      renderCategories();
+      renderCarousel();
+      initRevealObserver();
+      resetCarouselInterval();
+    });
+  </script>
+</body>
+</html>
